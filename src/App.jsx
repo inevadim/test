@@ -1,8 +1,9 @@
 import { FeedBackForm } from "./components/feedBackForm/FeedBackForm";
+import style from './App.module.scss'; 
 
 function App() {
   return (
-    <div className="App">
+    <div className={style.App}>
       <FeedBackForm />
     </div>
   );

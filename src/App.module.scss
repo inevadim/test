@@ -1,0 +1,11 @@
+@mixin centerElement{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.App{
+    width: 100vw;
+    height: 100vh;
+    @include centerElement();
+}
