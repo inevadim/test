@@ -6,7 +6,7 @@ import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { PhoneNumberValidation } from './validation/PhoneNumberValidation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
@@ -18,6 +18,15 @@ export const FeedBackForm=()=>{
     const[name,setName]=useState();
     const[nameDirty,setNameDirty]=useState(false);
     const[nameError,setNameError]=useState("Name must be filled");
+
+    const [formValid,setFormValid]=useState(false);
+    useEffect(()=>{
+        if(emailError || nameError){
+            setFormValid(false)
+        }else{
+            setFormValid(true)
+        }
+    },[emailError,nameError])
 
     const blurHandler=(e)=>{
         switch(e.target.name){
@@ -68,6 +77,6 @@ export const FeedBackForm=()=>{
 
         <div className={style.wrapperItem}><FontAwesomeIcon icon={faPhone} /><PhoneNumberValidation></PhoneNumberValidation></div>
         <div className={style.wrapperItem}><FontAwesomeIcon icon={faComments} /> <textarea placeholder='Message' color='white' cols="21" rows="6" ></textarea></div>
-        <div className={style.wrapperItem}> <div className={style.send}><FontAwesomeIcon icon={faPaperPlane} /> Send</div></div>
+        <div className={style.wrapperItem}> <button onClick={()=>{console.log("work")}} disabled={!formValid} className={style.send}><FontAwesomeIcon icon={faPaperPlane} /> Send</button></div>
     </div>)
 }
