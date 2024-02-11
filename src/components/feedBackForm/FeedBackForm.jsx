@@ -7,6 +7,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { PhoneNumberValidation } from './validation/PhoneNumberValidation';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+// import { response } from 'express';
 
 
 
@@ -19,6 +21,7 @@ export const FeedBackForm=()=>{
     const[nameDirty,setNameDirty]=useState(false);
     const[nameError,setNameError]=useState("Name must be filled");
 
+
     const [formValid,setFormValid]=useState(false);
     useEffect(()=>{
         if(emailError || nameError){
@@ -28,8 +31,28 @@ export const FeedBackForm=()=>{
         }
     },[emailError,nameError])
 
-    const getServer=()=>{
-        console.log('123')
+    const onServer=()=>{
+
+        const userData = {
+            name: name,
+            email: email
+          };
+
+        axios
+        .get("http://localhost:9090/api/ping")
+        .then(result => {
+        console.log(result)
+        })
+        .catch((error) => console.log(error));
+
+        
+        
+        axios.post("http://localhost:9090/api/registration", userData).then((response) => {
+            console.log(response.status, response.data.token);
+          });
+
+
+
     }
 
     const blurHandler=(e)=>{
@@ -81,6 +104,13 @@ export const FeedBackForm=()=>{
 
         <div className={style.wrapperItem}><FontAwesomeIcon icon={faPhone} /><PhoneNumberValidation></PhoneNumberValidation></div>
         <div className={style.wrapperItem}><FontAwesomeIcon icon={faComments} /> <textarea placeholder='Message' color='white' cols="21" rows="6" ></textarea></div>
-        <div className={style.wrapperItem}> <button onClick={()=>getServer()} disabled={!formValid} className={style.send}><FontAwesomeIcon icon={faPaperPlane} /> Send</button></div>
+        <div className={style.wrapperItem}> 
+        <button 
+            onClick={()=>onServer()} 
+            disabled={!formValid} 
+            className={style.send}>
+            <FontAwesomeIcon icon={faPaperPlane} /> 
+                Send
+        </button></div>
     </div>)
 }
