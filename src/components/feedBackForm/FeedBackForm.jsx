@@ -1,15 +1,9 @@
 import style from './FeedBackForm.module.scss'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAt } from '@fortawesome/free-solid-svg-icons';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-import { faComments } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faAt,faPhone,faComments,faUser,faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { PhoneNumberValidation } from './validation/PhoneNumberValidation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// import { response } from 'express';
-
 
 
 export const FeedBackForm=()=>{
@@ -60,11 +54,6 @@ export const FeedBackForm=()=>{
             setMsg("")
           })
           .catch((error) => console.log(error));
-
-
-
-
-
     }
 
     const blurHandler=(e)=>{
