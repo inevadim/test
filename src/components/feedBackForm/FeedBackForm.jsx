@@ -17,6 +17,11 @@ export const FeedBackForm=()=>{
     const[emailDirty,setEmailDirty]=useState(false);
     const[emailError,setEmailError]=useState("Email must be filled");
 
+    const[msg,setMsg]=useState();
+    const[msgDirty,setMsgDirty]=useState(false);
+    const[msgError,setMsgError]=useState("Message must be filled");
+
+
     const[name,setName]=useState();
     const[nameDirty,setNameDirty]=useState(false);
     const[nameError,setNameError]=useState("Name must be filled");
@@ -24,32 +29,39 @@ export const FeedBackForm=()=>{
 
     const [formValid,setFormValid]=useState(false);
     useEffect(()=>{
-        if(emailError || nameError){
+        if(emailError || nameError || msgError){
             setFormValid(false)
         }else{
             setFormValid(true)
         }
-    },[emailError,nameError])
+    },[emailError,nameError,msgError])
 
     const onServer=()=>{
 
         const userData = {
             name: name,
-            email: email
+            email: email,
+            msg:msg
           };
 
         axios
         .get("http://localhost:9090/api/ping")
         .then(result => {
-        console.log(result)
+        console.log(result.data.message)
         })
         .catch((error) => console.log(error));
 
         
         
         axios.post("http://localhost:9090/api/registration", userData).then((response) => {
-            console.log(response.status, response.data.token);
-          });
+            console.log(response.data) 
+            setName("")
+            setEmail("")
+            setMsg("")
+          })
+          .catch((error) => console.log(error));
+
+
 
 
 
@@ -60,9 +72,12 @@ export const FeedBackForm=()=>{
             case 'email':
                 setEmailDirty(true)  
                 break   
-                case 'name':
+            case 'name':
                 setNameDirty(true)  
                 break 
+            case 'msg':
+                setMsgDirty(true)  
+                break
         }
     }
 
@@ -87,8 +102,20 @@ export const FeedBackForm=()=>{
         }
     }
 
+    const msgHandler=(e)=>{
+        setMsg(e.target.value)
+        if(!e.target.value){
+            setMsgError("Message must be filled")
+        }
+        else{
+            setMsgError("")
+        }
+    }
+
+
+
     return(<div className={style.wrapper}>
-        <div className={style.FeedBackForm}>Feed back form</div>
+        <div className={style.FeedBackForm}>Feedback form</div>
 
         <div className={style.wrapperItem}>
             {(nameDirty && nameError) && <div style={{color:'red'}}>{nameError}</div>}
@@ -102,8 +129,18 @@ export const FeedBackForm=()=>{
             <input onChange={e=>emailHandler(e)} value={email} onBlur={e=>blurHandler(e)} name='email' type='email' placeholder='email'></input>
         </div>
 
-        <div className={style.wrapperItem}><FontAwesomeIcon icon={faPhone} /><PhoneNumberValidation></PhoneNumberValidation></div>
-        <div className={style.wrapperItem}><FontAwesomeIcon icon={faComments} /> <textarea placeholder='Message' color='white' cols="21" rows="6" ></textarea></div>
+        
+        <div className={style.wrapperItem}>
+            {/* {(phoneDirty && phoneError) && <div style={{color:'red'}}>{phoneError}</div>} */}
+            <FontAwesomeIcon icon={faPhone} /><PhoneNumberValidation></PhoneNumberValidation>
+        </div>
+        
+        <div className={style.wrapperItem}>
+            {(msgDirty && msgError) && <div style={{color:'red'}}>{msgError}</div>}   
+            <FontAwesomeIcon icon={faComments} /> 
+            <textarea  onChange={e=>msgHandler(e)} onBlur={e=>blurHandler(e)} placeholder='Message' value={msg} name='msg' color='white' cols="21" rows="6" ></textarea>
+        </div>
+
         <div className={style.wrapperItem}> 
         <button 
             onClick={()=>onServer()} 
