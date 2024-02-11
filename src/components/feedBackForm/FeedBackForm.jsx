@@ -4,9 +4,12 @@ import { faAt,faPhone,faComments,faUser,faPaperPlane,faWindowRestore } from '@fo
 import { PhoneNumberValidation } from './validation/PhoneNumberValidation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Modal } from './modal/Modal.jsx';
 
 
 export const FeedBackForm=()=>{
+    const[modalActive,setModalActive]=useState(true)
+
     const[email,setEmail]=useState();
     const[emailDirty,setEmailDirty]=useState(false);
     const[emailError,setEmailError]=useState("Email must be filled");
@@ -138,6 +141,11 @@ export const FeedBackForm=()=>{
             <FontAwesomeIcon icon={faPaperPlane} /> 
                  Send
         </button></div>
-        <button className={style.send}><FontAwesomeIcon icon={faWindowRestore}/>  Modal</button>
+        <button
+            onClick={()=>setModalActive(false)}
+            className={style.send}>
+                <FontAwesomeIcon icon={faWindowRestore}/>  Modal
+        </button>
+        <Modal active={modalActive} setActive={setModalActive}/>
     </div>)
 }
