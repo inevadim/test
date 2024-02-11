@@ -28,6 +28,10 @@ export const FeedBackForm=()=>{
         }
     },[emailError,nameError])
 
+    const getServer=()=>{
+        console.log('123')
+    }
+
     const blurHandler=(e)=>{
         switch(e.target.name){
             case 'email':
@@ -77,6 +81,6 @@ export const FeedBackForm=()=>{
 
         <div className={style.wrapperItem}><FontAwesomeIcon icon={faPhone} /><PhoneNumberValidation></PhoneNumberValidation></div>
         <div className={style.wrapperItem}><FontAwesomeIcon icon={faComments} /> <textarea placeholder='Message' color='white' cols="21" rows="6" ></textarea></div>
-        <div className={style.wrapperItem}> <button onClick={()=>{console.log("work")}} disabled={!formValid} className={style.send}><FontAwesomeIcon icon={faPaperPlane} /> Send</button></div>
+        <div className={style.wrapperItem}> <button onClick={()=>getServer()} disabled={!formValid} className={style.send}><FontAwesomeIcon icon={faPaperPlane} /> Send</button></div>
     </div>)
 }
