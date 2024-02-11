@@ -1,6 +1,6 @@
 import style from './FeedBackForm.module.scss'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAt,faPhone,faComments,faUser,faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faAt,faPhone,faComments,faUser,faPaperPlane,faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { PhoneNumberValidation } from './validation/PhoneNumberValidation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -136,7 +136,8 @@ export const FeedBackForm=()=>{
             disabled={!formValid} 
             className={style.send}>
             <FontAwesomeIcon icon={faPaperPlane} /> 
-                Send
+                 Send
         </button></div>
+        <button className={style.send}><FontAwesomeIcon icon={faWindowRestore}/>  Modal</button>
     </div>)
 }
