@@ -19,8 +19,11 @@ export const PhoneNumberValidation = () => {
 
   return (
     <div>
+      {!valid && (
+        <p style={{color:'red'}}>Please enter a valid phone number.</p>
+      )}
       <label>
-        Phone Number:
+        {/* Phone Number: */}
         <PhoneInput
           country={'by'}
           value={phoneNumber}
@@ -30,9 +33,7 @@ export const PhoneNumberValidation = () => {
           }}
         />
       </label>
-      {!valid && (
-        <p>Please enter a valid phone number.</p>
-      )}
+      
     </div>
   );
 };

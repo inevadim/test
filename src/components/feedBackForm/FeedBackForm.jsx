@@ -60,6 +60,7 @@ export const FeedBackForm=()=>{
     }
 
     const blurHandler=(e)=>{
+        // eslint-disable-next-line 
         switch(e.target.name){
             case 'email':
                 setEmailDirty(true)  
@@ -111,26 +112,58 @@ export const FeedBackForm=()=>{
 
         <div className={style.wrapperItem}>
             {(nameDirty && nameError) && <div style={{color:'red'}}>{nameError}</div>}
-            <div><FontAwesomeIcon icon={faUser} /></div>
-            <input onChange={e=>nameHandler(e)} value={name} onBlur={e=>blurHandler(e)} name='name' type='text' placeholder='Name'></input>
+
+            <div className={style.item}>
+                <div><FontAwesomeIcon icon={faUser} /></div>
+                <input 
+                    onChange={e=>nameHandler(e)} 
+                    value={name} 
+                    onBlur={e=>blurHandler(e)} 
+                    name='name' 
+                    type='text' 
+                    placeholder='Name'>
+                </input>
+            </div>
+
         </div>
 
         <div className={style.wrapperItem}>
             {(emailDirty && emailError) && <div style={{color:'red'}}>{emailError}</div>}
-            <FontAwesomeIcon icon={faAt} />
-            <input onChange={e=>emailHandler(e)} value={email} onBlur={e=>blurHandler(e)} name='email' type='email' placeholder='email'></input>
+            <div className={style.item}>
+                <FontAwesomeIcon icon={faAt} />
+                <input 
+                    onChange={e=>emailHandler(e)} 
+                    value={email} 
+                    onBlur={e=>blurHandler(e)} 
+                    name='email' 
+                    type='email' 
+                    placeholder='email'>
+                </input>
+            </div>
         </div>
 
         
         <div className={style.wrapperItem}>
             {/* {(phoneDirty && phoneError) && <div style={{color:'red'}}>{phoneError}</div>} */}
-            <FontAwesomeIcon icon={faPhone} /><PhoneNumberValidation></PhoneNumberValidation>
+            <div className={style.item}>
+                <FontAwesomeIcon icon={faPhone} style={{marginRight:'10px'}}/> <PhoneNumberValidation></PhoneNumberValidation>
+            </div>
         </div>
         
         <div className={style.wrapperItem}>
             {(msgDirty && msgError) && <div style={{color:'red'}}>{msgError}</div>}   
-            <FontAwesomeIcon icon={faComments} /> 
-            <textarea  onChange={e=>msgHandler(e)} onBlur={e=>blurHandler(e)} placeholder='Message' value={msg} name='msg' color='white' cols="21" rows="6" ></textarea>
+            <div className={style.item}>
+                <FontAwesomeIcon icon={faComments} /> 
+                <textarea  
+                    onChange={e=>msgHandler(e)} 
+                    onBlur={e=>blurHandler(e)} 
+                    placeholder='Message' 
+                    value={msg} name='msg' 
+                    color='white' 
+                    cols="21" 
+                    rows="6" >
+                </textarea>
+            </div>
         </div>
 
         <div className={style.wrapperItem}> 
